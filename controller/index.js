@@ -3,8 +3,6 @@ const fs = require('fs')
 
 const Home = async (req, res) => {
     const {success, error} = req.flash()
-    console.log(success)
-    console.log(error)
     const page = Number(req.query.page) || 1
     const itemPerpage = 6
     const daftarPortofolio = await portofolio.findAndCountAll({
