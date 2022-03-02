@@ -1,0 +1,31 @@
+<div class="col-lg-4 col-sm-6" style="position: relative;">
+    <% if (item.image) { %>
+        <a class="portfolio-box" href="<%= item.image.file_url %>" title="<%= item.project_name %>">
+            <img class="img-fluid" src="<%= item.image.file_url %> " alt="..." />
+            <div class="portfolio-box-caption">
+                <div class="project-category text-white-50"><%= item.category %> </div>
+                <div class="project-name"><%= item.project_name %> </div>
+            </div>
+        </a>
+    <% } else {%> 
+        <a class="portfolio-box" href="/assets/img/dummyImage.jpg" title="<%= item.project_name %>">
+            <img class="img-fluid" src="/assets/img/dummyImage.jpg" alt="..." />
+            <div class="portfolio-box-caption">
+                <div class="project-category text-white-50"><%= item.category %> </div>
+                <div class="project-name"><%= item.project_name %> </div>
+            </div>
+        </a>
+    <% } %> 
+    
+    <div class="btn-group" style="position: absolute; z-index: 999; bottom: 0;">
+        <button type="button" class="btn btn-primary text-center" >
+            <a href="/edit/<%= item.uuid %> " class="text-light text-decoration-none">
+                Edit
+            </a>        
+        </button>
+        <form action="/delete/<%= item.uuid%>" method="post" >
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+    
+</div>

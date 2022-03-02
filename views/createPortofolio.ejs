@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+     <%- include('./partial/header')  %> 
+    </head>
+    <body id="page-top">
+        <%- include('./partial/navbar') %> 
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 h-100">
+                <div class="row gx-4 gx-lg-5 justify-content-center text-center">
+                    <div class="col-lg-12" style="margin-top: 100px;">
+                        <div class="signup-form">
+                            <form action="/create" method="post" enctype="multipart/form-data">
+                                <h2>CREATE PORTOFOLIO</h2>
+                                <hr>
+                                <div class="form-group">
+                                    <label>CATEGORY</label>
+                                    <input type="text" class="form-control" name="category" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>PROJECT NAME</label>
+                                    <input type="text" class="form-control" name="project_name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Upload Gambar Portofolio</label>
+                                    <input type="file" class="form-control" name="image" accept="image/*">
+                                </div>
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-primary btn-block btn-lg">CREATE</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        
+        <%- include('./partial/footer') %> 
+    </body>
+</html>
