@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-     <%- include('./partial/header')  %> 
+     <%- include('partial/header')  %> 
     </head>
     <body id="page-top">
-        <%- include('./partial/navbar') %> 
+        <%- include('partial/navbar') %> 
         <!-- Masthead-->
         <header class="masthead">
             <div class="container px-4 px-lg-5 h-100">
@@ -79,30 +79,39 @@
         <div id="portfolio">
             <div class="container-fluid p-0">
                 <div class="row g-0">
-                    <% data.forEach(item => { %>
-                        <%- include('partial/portofolioComponent', {item:item}) %> 
-                    <% }) %>                    
+                    <% if (data.length > 0) { %>
+                        <% data.forEach(item => { %>
+                            <%- include('partial/portofolioComponent', {item:item}) %> 
+                        <% }) %> 
+                    <% } else {%>
+                        <div class="col-12 text-center">
+                            <img style="width: 30%;" src="/assets/img/no-data.svg" alt="no-data">
+                        </div>
+                    <% } %>                                      
                 </div>
             </div>
         </div>
         
-        <div class="row mt-5">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                  <li class="page-item <%= currentPage ==1 ? 'disabled' : '' %> ">
-                    <a class="page-link" href="/?page=<%= prevPage %>">Previous</a>
-                  </li>                  
-                <% for( let index = 1; index <= totalPage; index++ ) { %>
-                    <li class="page-item <%= index == currentPage ? 'active' : '' %> ">
-                        <a class="page-link" href="/?page=<%= index %> "> <%= index %> </a>
-                    </li>
-                <% } %>
-                  <li class="page-item <%= totalPage == currentPage ? 'disabled' : '' %>">
-                    <a class="page-link " href="/?page=<%= nextPage %>">Next</a>
-                  </li>
-                </ul>
-              </nav>
-        </div>
+        <!-- Pagination -->
+        <% if (data.length > 0) { %>
+            <div class="row mt-5">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                      <li class="page-item <%= currentPage ==1 ? 'disabled' : '' %> ">
+                        <a class="page-link" href="/?page=<%= prevPage %>">Previous</a>
+                      </li>                  
+                    <% for( let index = 1; index <= totalPage; index++ ) { %>
+                        <li class="page-item <%= index == currentPage ? 'active' : '' %> ">
+                            <a class="page-link" href="/?page=<%= index %> "> <%= index %> </a>
+                        </li>
+                    <% } %>
+                      <li class="page-item <%= totalPage == currentPage ? 'disabled' : '' %>">
+                        <a class="page-link " href="/?page=<%= nextPage %>">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+            </div>
+        <% } %>      
        
         <!-- Contact-->
         <section class="page-section" id="contact">
