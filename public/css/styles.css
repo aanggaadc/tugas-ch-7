@@ -10,6 +10,12 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+.service-icon{
+  filter: invert(51%) sepia(69%) saturate(2688%) hue-rotate(336deg) brightness(97%) contrast(98%);
+  width: 40px;
+  height: 40px;
+}
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;

@@ -2,7 +2,7 @@ const multer = require('multer')
 const directory = __dirname + "/../public/icons"
 const filter = (req, file, cb) => {
     if (
-        file.mimetype.includes('image/png') || file.mimetype.includes('image/svg')) {
+        file.mimetype.includes('image/png') || file.mimetype.includes('image/svg+xml')) {
         cb(null, true)
     }else{
         cb(new Error('Harap Upload File dengan Format SVG atau PNG'))

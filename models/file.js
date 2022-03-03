@@ -6,16 +6,14 @@ module.exports = (sequelize, DataTypes) => {
   class file extends Model {
     static associate(models) {
       file.belongsTo(models.portofolio, {
-        foreignKey: 'owner_uuid',
+        foreignKey: 'portofolio_uuid',
         as: 'portofolio'
       })
-    }
 
-    static associate(models) {
       file.belongsTo(models.services, {
-        foreignKey: 'owner_uuid',
-        as: 'services'
-      })
+            foreignKey: 'services_uuid',
+            as: 'services'
+          })
     }
   }
   file.init({
@@ -40,9 +38,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    owner_uuid:{
-      type:DataTypes.UUID,
-      allowNull:false
+    portofolio_uuid:{
+      type:DataTypes.UUID
+    },
+    services_uuid:{
+      type:DataTypes.UUID
     }
   }, {
     sequelize,

@@ -22,7 +22,7 @@ router.post('/edit/:id',uploadImage.single('image'), EditPortofolioFunction)
 router.post('/delete/:id', DeletePortofolio)
 router.post('/contactus', ContacUs)
 router.get('/createServices', Services)
-router.post('/createServices', uploadIcon.single('image'), CreateServices)
+router.post('/createServices', uploadIcon.single('icon'), CreateServices)
 
 
 

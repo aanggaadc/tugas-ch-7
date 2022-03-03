@@ -10,10 +10,15 @@ const Home = async (req, res) => {
         limit: itemPerpage,
         offset: (page-1) * itemPerpage
     })
+
+    const daftarService = await services.findAll({
+        include: 'icon'
+    })
     
     res.render('index', {
         title: "Tugas Kelompok CH7",
         data: daftarPortofolio.rows,
+        dataServices: daftarService,
         currentPage: page,
         totalPage: Math.ceil(daftarPortofolio.count / itemPerpage),
         nextPage : page + 1,
@@ -48,7 +53,7 @@ const CreateServices = (req,res) => {
                 file_name: req.file.filename,
                 file_size: req.file.size,
                 original_filename: req.file.originalname,
-                owner_uuid: data.uuid
+                services_uuid: data.uuid
             })
         }
         req.flash('success', 'Services Created')
@@ -94,7 +99,7 @@ const CreatePortofolio = (req, res) => {
                 file_name: req.file.filename,
                 file_size: req.file.size,
                 original_filename: req.file.originalname,
-                owner_uuid: data.uuid
+                portofolio_uuid: data.uuid
             })
         }
         req.flash('success', 'Portofolio Created')

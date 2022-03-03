@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   class services extends Model {
     static associate(models) {
       services.hasOne(models.file, {
-        foreignKey: 'owner_uuid',
-        as: 'image'
+        foreignKey: 'services_uuid',
+        as: 'icon'
       })
     }
   }
