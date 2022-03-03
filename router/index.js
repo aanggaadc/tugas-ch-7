@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const uploadImage = require('../utils/uploadImage')
+const uploadIcon = require('../utils/uploadIcon')
 const {
     Home, 
     Portofolio,
@@ -7,7 +8,8 @@ const {
     EditPortofolio,
     EditPortofolioFunction,
     DeletePortofolio,
-    ContacUs
+    ContacUs,
+    Services
 } = require('../controller')
 
 
@@ -18,6 +20,7 @@ router.get('/edit/:id', EditPortofolio)
 router.post('/edit/:id',uploadImage.single('image'), EditPortofolioFunction)
 router.post('/delete/:id', DeletePortofolio)
 router.post('/contactus', ContacUs)
+router.get('/createServices', Services)
 
 
 

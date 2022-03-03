@@ -29,6 +29,12 @@ const Portofolio = (req, res) => {
     })
 }
 
+const Services = (req, res) => {
+    res.render('createServices', {
+        title: "Create New Services"
+    })
+}
+
 const EditPortofolio = async (req, res, next) => {
     try {
         const findPortofolio = await portofolio.findOne({
@@ -179,5 +185,6 @@ module.exports = {
     EditPortofolio,
     EditPortofolioFunction,
     DeletePortofolio,
-    ContacUs
+    ContacUs,
+    Services
 }
