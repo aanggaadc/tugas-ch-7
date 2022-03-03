@@ -1,5 +1,5 @@
 const multer = require('multer')
-const directory = __dirname + "/../public/icon"
+const directory = __dirname + "/../public/icons"
 const filter = (req, file, cb) => {
     if (
         file.mimetype.includes('image/png') || file.mimetype.includes('image/svg')) {

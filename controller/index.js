@@ -35,6 +35,31 @@ const Services = (req, res) => {
     })
 }
 
+const CreateServices = (req,res) => {
+    const {service_name, service_description} = req.body
+
+    services.create({
+        service_name,
+        service_description
+    }).then(async (data) => {
+        if(req.file){
+            await file.create({
+                file_url: `/icons/${req.file.filename}`,
+                file_name: req.file.filename,
+                file_size: req.file.size,
+                original_filename: req.file.originalname,
+                owner_uuid: data.uuid
+            })
+        }
+        req.flash('success', 'Services Created')
+        res.redirect('/')
+    }).catch((error) => {
+        req.flash('error', error.message)
+        console.log(error)
+        res.redirect('/')
+    })
+}
+
 const EditPortofolio = async (req, res, next) => {
     try {
         const findPortofolio = await portofolio.findOne({
@@ -186,5 +211,6 @@ module.exports = {
     EditPortofolioFunction,
     DeletePortofolio,
     ContacUs,
-    Services
+    Services,
+    CreateServices
 }
