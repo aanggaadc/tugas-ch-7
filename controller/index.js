@@ -1,4 +1,4 @@
-const { portofolio, file, contactus } = require('../models')
+const { portofolio, file, contactus, services } = require('../models')
 const fs = require('fs')
 
 const Home = async (req, res) => {
@@ -29,7 +29,7 @@ const Portofolio = (req, res) => {
     })
 }
 
-const editPortofolio = async (req, res, next) => {
+const EditPortofolio = async (req, res, next) => {
     try {
         const findPortofolio = await portofolio.findOne({
             where: {
@@ -50,7 +50,7 @@ const editPortofolio = async (req, res, next) => {
     }      
 }
 
-const createPortofolio = (req, res) => {
+const CreatePortofolio = (req, res) => {
     const { category, project_name} = req.body
 
     portofolio.create({
@@ -75,7 +75,7 @@ const createPortofolio = (req, res) => {
     })
 }
 
-const editPortofolioFunction = async (req, res) => {
+const EditPortofolioFunction = async (req, res) => {
     const { category, project_name} = req.body
     try {
         const findPortofolio = await portofolio.findOne({
@@ -120,7 +120,7 @@ const editPortofolioFunction = async (req, res) => {
     }
 }
 
-const deletePortofolio = async (req,res) => {
+const DeletePortofolio = async (req,res) => {
     try {
         const portofolioToDelete = await portofolio.findOne({
             where: {
@@ -152,7 +152,7 @@ const deletePortofolio = async (req,res) => {
     }
 }
 
-const contacUs = (req,res) =>{
+const ContacUs = (req,res) =>{
     const {full_name, email, phone, message} = req.body
 
     contactus.create({
@@ -175,9 +175,9 @@ const contacUs = (req,res) =>{
 module.exports = {
     Home,
     Portofolio,
-    createPortofolio,
-    editPortofolio,
-    editPortofolioFunction,
-    deletePortofolio,
-    contacUs
+    CreatePortofolio,
+    EditPortofolio,
+    EditPortofolioFunction,
+    DeletePortofolio,
+    ContacUs
 }

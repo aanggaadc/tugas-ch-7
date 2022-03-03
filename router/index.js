@@ -3,21 +3,21 @@ const uploadImage = require('../utils/uploadImage')
 const {
     Home, 
     Portofolio,
-    createPortofolio,
-    editPortofolio,
-    editPortofolioFunction,
-    deletePortofolio,
-    contacUs
+    CreatePortofolio,
+    EditPortofolio,
+    EditPortofolioFunction,
+    DeletePortofolio,
+    ContacUs
 } = require('../controller')
 
 
 router.get('/', Home)
 router.get('/create', Portofolio)
-router.post('/create', uploadImage.single('image'), createPortofolio)
-router.get('/edit/:id', editPortofolio)
-router.post('/edit/:id',uploadImage.single('image'), editPortofolioFunction)
-router.post('/delete/:id', deletePortofolio)
-router.post('/contactus', contacUs)
+router.post('/create', uploadImage.single('image'), CreatePortofolio)
+router.get('/edit/:id', EditPortofolio)
+router.post('/edit/:id',uploadImage.single('image'), EditPortofolioFunction)
+router.post('/delete/:id', DeletePortofolio)
+router.post('/contactus', ContacUs)
 
 
 

@@ -10,6 +10,13 @@ module.exports = (sequelize, DataTypes) => {
         as: 'portofolio'
       })
     }
+
+    static associate(models) {
+      file.belongsTo(models.services, {
+        foreignKey: 'owner_uuid',
+        as: 'services'
+      })
+    }
   }
   file.init({
     uuid:{
