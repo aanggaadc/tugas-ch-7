@@ -14,6 +14,12 @@ const Home = async (req, res) => {
     const daftarService = await services.findAll({
         include: 'icon'
     })
+
+    // res.status(200).json({
+    //     message: "SUCCESS",
+    //     data_portofolio: daftarPortofolio,
+    //     data_services: daftarService
+    // })
     
     res.render('index', {
         title: "Tugas Kelompok CH7",
@@ -28,11 +34,8 @@ const Home = async (req, res) => {
     })
 }
 
-const Portofolio = (req, res) => {
-    res.render('createPortofolio',{
-        title: "Create New Portofolio"
-    })
-}
+
+// ---------------- SERVICES ------------------------- //
 
 const Services = (req, res) => {
     res.render('createServices', {
@@ -62,6 +65,114 @@ const CreateServices = (req,res) => {
         req.flash('error', error.message)
         console.log(error)
         res.redirect('/')
+    })
+}
+
+const EditServices = async (req, res, next) => {
+    try {
+        const findService = await services.findOne({
+            where:{
+                uuid: req.params.id
+            }
+        })
+
+        if(findService){
+            res.render('editServices' ,{
+                data: findService,
+                title: "Edit Service Data"
+            })
+        }else{
+            next()
+        }
+    } catch (error) {
+        next()
+    }
+}
+
+const EditServicesFunction = async (req, res) => {
+    const {service_name, service_description} = req.body
+    try {
+        const findServices = await services.findOne({
+            where: {
+                uuid :req.params.id
+            },
+            include: "icon"
+        })
+
+        if(req.file){
+            await file.create({
+                file_url: `/icons/${req.file.filename}`,
+                file_name: req.file.filename,
+                file_size: req.file.size,
+                original_filename: req.file.originalname,
+                services_uuid: findServices.uuid
+            })
+
+            if(findServices.icon){
+                await file.destroy({
+                    where: {
+                        uuid: findServices.icon.uuid
+                    }
+                })
+                fs.rmSync(__dirname + '/../public' + findServices.icon.file_url)
+            }
+        }
+
+        const serviceUpdated = await findServices.update({
+            service_name,
+            service_description
+        })
+
+        if(serviceUpdated){
+            req.flash('success', 'Services Edited')
+            res.redirect('/')
+        }
+    } catch (error) {
+        req.flash('error', error.message)
+        console.log(error)
+        res.redirect('/')
+    }
+}
+
+
+const DeleteServices = async (req, res) => {
+    try {
+        const servicesToDelete = await services.findOne({
+            where: {
+                uuid: req.params.id
+            },
+            include: 'icon'
+        })
+
+        if(servicesToDelete.icon){
+            await file.destroy({
+                where: {
+                    uuid: servicesToDelete.icon.uuid
+                }
+            })
+            fs.rmSync(__dirname + '/../public' +servicesToDelete.icon.file_url)
+        }
+
+        await servicesToDelete.destroy()
+
+        if(servicesToDelete){
+            req.flash('success', 'Services Deleted')
+            res.redirect('/')
+        }
+    } catch (error) {
+        req.flash('error', error.message)
+        console.log(error)
+        res.redirect('/')
+    }
+}
+
+
+
+// ---------------- PORTOFOLIO ------------------------- //
+
+const Portofolio = (req, res) => {
+    res.render('createPortofolio',{
+        title: "Create New Portofolio"
     })
 }
 
@@ -127,7 +238,7 @@ const EditPortofolioFunction = async (req, res) => {
                 file_name: req.file.filename,
                 file_size: req.file.size,
                 original_filename: req.file.originalname,
-                owner_uuid: findPortofolio.uuid
+                portofolio_uuid: findPortofolio.uuid
             })
             
             if(findPortofolio.image){
@@ -188,6 +299,9 @@ const DeletePortofolio = async (req,res) => {
     }
 }
 
+
+// ---------------- CONTACT US ------------------------- //
+
 const ContacUs = (req,res) =>{
     const {full_name, email, phone, message} = req.body
 
@@ -217,5 +331,8 @@ module.exports = {
     DeletePortofolio,
     ContacUs,
     Services,
-    CreateServices
+    CreateServices,
+    EditServices,
+    EditServicesFunction,
+    DeleteServices
 }

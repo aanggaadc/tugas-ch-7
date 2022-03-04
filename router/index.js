@@ -10,7 +10,10 @@ const {
     DeletePortofolio,
     ContacUs,
     Services,
-    CreateServices
+    CreateServices,
+    EditServices,
+    EditServicesFunction,
+    DeleteServices
 } = require('../controller')
 
 
@@ -23,7 +26,9 @@ router.post('/delete/:id', DeletePortofolio)
 router.post('/contactus', ContacUs)
 router.get('/createServices', Services)
 router.post('/createServices', uploadIcon.single('icon'), CreateServices)
-
+router.get('/editServices/:id', EditServices)
+router.post('/editServices/:id', uploadIcon.single('icon'), EditServicesFunction)
+router.post('/deleteServices/:id', DeleteServices)
 
 
 module.exports = router

@@ -1,7 +1,24 @@
 <div class="col-lg-3 col-md-6 text-center">
     <div class="mt-5">
-        <div class="mb-2"><img class="service-icon" src="<%= item.icon.file_url %> " alt=""></div>
-        <h3 class="h4 mb-2"><%= item.service_name %> </h3>
-        <p class="text-muted mb-0"><%= item.service_description %> </p>
+        <% if (item.icon) { %>
+            <div class="mb-2"><img class="service-icon" src="<%= item.icon.file_url %> " alt=""></div>
+            <h3 class="h4 mb-2"><%= item.service_name %> </h3>
+            <p class="text-muted mb-0"><%= item.service_description %> </p>
+         <% } else { %>
+            <div class="mb-2"><img src="/assets/img/no-icon.png" alt=""></div>
+            <h3 class="h4 mb-2"><%= item.service_name %> </h3>
+            <p class="text-muted mb-0"><%= item.service_description %> </p>
+        <% } %>
+    </div>
+
+    <div class="btn-group mt-2">
+        <button type="button" class="btn btn-primary text-center" >
+            <a href="/editServices/<%= item.uuid %> " class="text-light text-decoration-none">
+                Edit
+            </a>        
+        </button>
+        <form action="/deleteServices/<%= item.uuid %> " method="post" >
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
     </div>
 </div>
